@@ -20,70 +20,166 @@ const DEFAULT_STATE = {
   scheduleDays: [1, 3, 5],
   plansByWeekday: {
     1: {
-      title: "Понедельник",
+      title: "День 1: Грудь + Плечи + Бицепс",
       exercises: [
         {
-          name: "Arnold Press",
-          note: "Плечи и трицепс",
+          name: "Жим в тренажере Хаммер сидя на грудь",
+          note: "30 кг на руку",
           sets: [
-            { weight: "40", reps: "8" },
-            { weight: "42.5", reps: "8" },
-            { weight: "45", reps: "6" }
+            { weight: "30", reps: "10" },
+            { weight: "30", reps: "10" },
+            { weight: "30", reps: "10" },
+            { weight: "30", reps: "10" }
           ]
         },
         {
-          name: "Incline Bench Press",
-          note: "Верх груди",
+          name: "Сведение рук в тренажере «Бабочка»",
+          note: "60-70 кг",
           sets: [
-            { weight: "60", reps: "8" },
-            { weight: "65", reps: "8" },
-            { weight: "67.5", reps: "6" }
+            { weight: "60-70", reps: "10" },
+            { weight: "60-70", reps: "10" },
+            { weight: "60-70", reps: "10" },
+            { weight: "60-70", reps: "10" }
+          ]
+        },
+        {
+          name: "Жим гантелей сидя на плечи",
+          note: "20 кг каждая гантель",
+          sets: [
+            { weight: "20", reps: "10" },
+            { weight: "20", reps: "10" },
+            { weight: "20", reps: "10" },
+            { weight: "20", reps: "10" }
+          ]
+        },
+        {
+          name: "Махи гантелей в стороны стоя",
+          note: "10 кг каждая гантель",
+          sets: [
+            { weight: "10", reps: "12" },
+            { weight: "10", reps: "12" },
+            { weight: "10", reps: "12" },
+            { weight: "10", reps: "12" }
+          ]
+        },
+        {
+          name: "Сгибания рук с гантелями сидя на наклонной скамье",
+          note: "12-14 кг каждая гантель",
+          sets: [
+            { weight: "12-14", reps: "10" },
+            { weight: "12-14", reps: "10" },
+            { weight: "12-14", reps: "10" },
+            { weight: "12-14", reps: "10" }
           ]
         }
       ]
     },
     3: {
-      title: "Среда",
+      title: "День 2: Спина + Трицепс + Задняя дельта",
       exercises: [
         {
-          name: "Pull Up",
-          note: "Спина",
+          name: "Тяга верхнего блока к груди сидя",
+          note: "55-60 кг",
           sets: [
-            { weight: "BW", reps: "8" },
-            { weight: "BW", reps: "7" },
-            { weight: "BW", reps: "6" }
+            { weight: "55-60", reps: "10" },
+            { weight: "55-60", reps: "10" },
+            { weight: "55-60", reps: "10" },
+            { weight: "55-60", reps: "10" }
           ]
         },
         {
-          name: "Seated Row",
-          note: "Ширина и толщина",
+          name: "Тяга горизонтального блока к поясу сидя",
+          note: "40-45 кг",
           sets: [
-            { weight: "55", reps: "10" },
-            { weight: "60", reps: "8" },
-            { weight: "60", reps: "8" }
+            { weight: "40-45", reps: "10" },
+            { weight: "40-45", reps: "10" },
+            { weight: "40-45", reps: "10" },
+            { weight: "40-45", reps: "10" }
+          ]
+        },
+        {
+          name: "Рычажная тяга в Хаммере попеременно",
+          note: "15 кг на руку",
+          sets: [
+            { weight: "15", reps: "10" },
+            { weight: "15", reps: "10" },
+            { weight: "15", reps: "10" },
+            { weight: "15", reps: "10" }
+          ]
+        },
+        {
+          name: "Тяга к лицу с канатным жгутом в кроссовере (Face Pull)",
+          note: "60 кг",
+          sets: [
+            { weight: "60", reps: "10" },
+            { weight: "60", reps: "10" },
+            { weight: "60", reps: "10" },
+            { weight: "60", reps: "10" }
+          ]
+        },
+        {
+          name: "Разгибания рук со сжатыми локтями с перекладиной в кроссовере",
+          note: "60 кг",
+          sets: [
+            { weight: "60", reps: "10" },
+            { weight: "60", reps: "10" },
+            { weight: "60", reps: "10" },
+            { weight: "60", reps: "10" }
           ]
         }
       ]
     },
     5: {
-      title: "Пятница",
+      title: "День 3: Ноги (Безопасные) + Пресс",
       exercises: [
         {
-          name: "Back Squat",
-          note: "Ноги",
+          name: "Жим ногами в тренажере",
+          note: "100-120 кг. Стопы высоко, колени без острых углов",
           sets: [
-            { weight: "80", reps: "8" },
-            { weight: "85", reps: "6" },
-            { weight: "85", reps: "6" }
+            { weight: "100-120", reps: "10" },
+            { weight: "100-120", reps: "10" },
+            { weight: "100-120", reps: "10" },
+            { weight: "100-120", reps: "10" }
           ]
         },
         {
-          name: "Leg Press",
-          note: "Добивка квадрицепса",
+          name: "Сгибания ног лежа в тренажере",
+          note: "35-45 кг",
           sets: [
-            { weight: "140", reps: "10" },
-            { weight: "160", reps: "8" },
-            { weight: "160", reps: "8" }
+            { weight: "35-45", reps: "10" },
+            { weight: "35-45", reps: "10" },
+            { weight: "35-45", reps: "10" },
+            { weight: "35-45", reps: "10" }
+          ]
+        },
+        {
+          name: "Разгибания ног сидя в тренажере",
+          note: "25-35 кг, плавно, без рывков",
+          sets: [
+            { weight: "25-35", reps: "12" },
+            { weight: "25-35", reps: "12" },
+            { weight: "25-35", reps: "12" },
+            { weight: "25-35", reps: "12" }
+          ]
+        },
+        {
+          name: "Подъем на носки в тренажере (голень)",
+          note: "40-50 кг",
+          sets: [
+            { weight: "40-50", reps: "15" },
+            { weight: "40-50", reps: "15" },
+            { weight: "40-50", reps: "15" },
+            { weight: "40-50", reps: "15" }
+          ]
+        },
+        {
+          name: "Скручивания на пресс в тренажере или на коврике",
+          note: "Собственный вес или легкий вес",
+          sets: [
+            { weight: "BW", reps: "15-20" },
+            { weight: "BW", reps: "15-20" },
+            { weight: "BW", reps: "15-20" },
+            { weight: "BW", reps: "15-20" }
           ]
         }
       ]

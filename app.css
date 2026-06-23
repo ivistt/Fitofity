@@ -31,7 +31,7 @@ html,body{
 body{
   min-height:100vh;
   min-height:100dvh;
-  overflow:hidden;
+  overflow:auto;
   -webkit-font-smoothing:antialiased;
   -webkit-tap-highlight-color:transparent;
 }
@@ -45,14 +45,14 @@ body{
   display:flex;
   flex-direction:column;
   position:relative;
-  overflow:hidden;
+  overflow:visible;
   background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
 }
 
 .app-screen{
   flex:1;
   min-height:0;
-  overflow:auto;
+  overflow:visible;
   padding:calc(max(18px, env(safe-area-inset-top)) + 8px) 16px calc(108px + env(safe-area-inset-bottom));
   scrollbar-width:none;
 }
