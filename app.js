@@ -482,15 +482,15 @@ function renderExerciseCard(dateKey, exercise, exerciseIndex) {
         <div class="exercise-avatar">◎</div>
         <div>
           <div class="exercise-name">${escapeHtml(exercise.name || "Упражнение")}</div>
-          <div class="exercise-note">${escapeHtml(getExercisePrescription(exercise))}</div>
+          <div class="exercise-note">${escapeHtml(summary.meta)}</div>
         </div>
       </div>
       <div class="sets">
         <div class="set-row ${done ? "done" : ""}">
           <div class="set-index">${exerciseIndex + 1}</div>
           <div class="set-ghost">${escapeHtml(summary.label)}</div>
-          <div class="set-number">${escapeHtml(summary.weight)}</div>
-          <div class="set-number">${escapeHtml(summary.reps)}</div>
+          <div class="set-number">${escapeHtml(summary.sets)}</div>
+          <div class="set-number">${done ? "ок" : "план"}</div>
           <button class="set-check" data-set-toggle="${dateKey}|${exerciseIndex}|0|1">
             ${done ? "✓" : "○"}
           </button>
@@ -500,28 +500,13 @@ function renderExerciseCard(dateKey, exercise, exerciseIndex) {
   `;
 }
 
-function getExercisePrescription(exercise) {
-  if (exercise.note) {
-    const firstSet = exercise.sets && exercise.sets[0];
-    if (firstSet && firstSet.weight && firstSet.reps) {
-      return `${exercise.note} • ${firstSet.weight} × ${firstSet.reps} × ${exercise.sets.length}`;
-    }
-    return exercise.note;
-  }
-  if (exercise.sets && exercise.sets.length) {
-    const firstSet = exercise.sets[0];
-    return `${firstSet.weight || "-"} × ${firstSet.reps || "-"} × ${exercise.sets.length}`;
-  }
-  return "Упражнение на сегодня";
-}
-
 function getExerciseSetSummary(exercise) {
   const setsCount = exercise.sets?.length || 0;
   const firstSet = exercise.sets?.[0];
   return {
-    label: setsCount ? `${setsCount} подх.` : "План",
-    weight: firstSet?.weight || "-",
-    reps: firstSet?.reps || "-"
+    label: exercise.note || "Упражнение на сегодня",
+    meta: firstSet ? `${firstSet.weight || "-"} кг • ${firstSet.reps || "-"} повторений` : "Без параметров",
+    sets: setsCount ? `${setsCount} подх.` : "-"
   };
 }
 
