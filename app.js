@@ -417,7 +417,6 @@ function renderTodayScreen() {
   const scheduled = isScheduledDate(dateKey);
   const plan = getPlanForDate(dateKey);
   const session = getSession(dateKey);
-  const totalSets = plan.exercises.reduce((sum, item) => sum + item.sets.length, 0);
 
   return `
     <div class="topbar">
@@ -444,8 +443,8 @@ function renderTodayScreen() {
           <div class="summary-value">${plan.exercises.length}</div>
         </div>
         <div class="summary-card">
-          <div class="summary-label">Подходы</div>
-          <div class="summary-value">${totalSets}</div>
+          <div class="summary-label">День</div>
+          <div class="summary-value">${WEEKDAYS.find(day => day.key === getWeekdayKey(dateKey))?.short || ""}</div>
         </div>
         <div class="summary-card">
           <div class="summary-label">Статус</div>
@@ -473,7 +472,9 @@ function renderTodayScreen() {
 }
 
 function renderExerciseCard(dateKey, exercise, exerciseIndex) {
-  const checks = getExerciseChecks(dateKey, exerciseIndex, exercise.sets.length);
+  const checks = getExerciseChecks(dateKey, exerciseIndex, 1);
+  const done = checks[0];
+  const summary = getExerciseSetSummary(exercise);
 
   return `
     <article class="exercise-card">
@@ -481,24 +482,47 @@ function renderExerciseCard(dateKey, exercise, exerciseIndex) {
         <div class="exercise-avatar">◎</div>
         <div>
           <div class="exercise-name">${escapeHtml(exercise.name || "Упражнение")}</div>
-          <div class="exercise-note">${escapeHtml(exercise.note || "Список подходов на сегодня")}</div>
+          <div class="exercise-note">${escapeHtml(getExercisePrescription(exercise))}</div>
         </div>
       </div>
       <div class="sets">
-        ${exercise.sets.map((set, setIndex) => `
-          <div class="set-row ${checks[setIndex] ? "done" : ""}">
-            <div class="set-index">${setIndex === 0 ? "W" : setIndex}</div>
-            <div class="set-ghost">${escapeHtml(`${set.weight || "-"} × ${set.reps || "-"}`)}</div>
-            <div class="set-number">${escapeHtml(set.weight || "-")}</div>
-            <div class="set-number">${escapeHtml(set.reps || "-")}</div>
-            <button class="set-check" data-set-toggle="${dateKey}|${exerciseIndex}|${setIndex}|${exercise.sets.length}">
-              ${checks[setIndex] ? "✓" : "○"}
-            </button>
-          </div>
-        `).join("")}
+        <div class="set-row ${done ? "done" : ""}">
+          <div class="set-index">${exerciseIndex + 1}</div>
+          <div class="set-ghost">${escapeHtml(summary.label)}</div>
+          <div class="set-number">${escapeHtml(summary.weight)}</div>
+          <div class="set-number">${escapeHtml(summary.reps)}</div>
+          <button class="set-check" data-set-toggle="${dateKey}|${exerciseIndex}|0|1">
+            ${done ? "✓" : "○"}
+          </button>
+        </div>
       </div>
     </article>
   `;
+}
+
+function getExercisePrescription(exercise) {
+  if (exercise.note) {
+    const firstSet = exercise.sets && exercise.sets[0];
+    if (firstSet && firstSet.weight && firstSet.reps) {
+      return `${exercise.note} • ${firstSet.weight} × ${firstSet.reps} × ${exercise.sets.length}`;
+    }
+    return exercise.note;
+  }
+  if (exercise.sets && exercise.sets.length) {
+    const firstSet = exercise.sets[0];
+    return `${firstSet.weight || "-"} × ${firstSet.reps || "-"} × ${exercise.sets.length}`;
+  }
+  return "Упражнение на сегодня";
+}
+
+function getExerciseSetSummary(exercise) {
+  const setsCount = exercise.sets?.length || 0;
+  const firstSet = exercise.sets?.[0];
+  return {
+    label: setsCount ? `${setsCount} подх.` : "План",
+    weight: firstSet?.weight || "-",
+    reps: firstSet?.reps || "-"
+  };
 }
 
 function renderScheduleScreen() {
